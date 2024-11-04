@@ -68,7 +68,7 @@ col1, col2 = st.columns([1,1])
 with col1:
     url_driver = st.text_input("Nhập đường dẫn đến chormedriver.exe:")
     driver_path = url_driver
-st.session_state.driver1 = openWeb() 
+st.session_state.driver1 = openWeb(driver_path) 
 st.write(f"['{datetime.now()}'] Thực thi khởi tạo bot")
 
 with col2:
@@ -102,7 +102,7 @@ with col2:
     if st.button("Khởi tạo bot 2"):
         for i in st.session_state.list_link :
             st.write(f"['{datetime.now()}'] tải từ link {i} ")
-            driver2 = openWeb()
+            driver2 = openWeb(driver_path)
             driver2.get('https://snaptik.vn/')
             time.sleep(1)
             textbox = driver2.find_element(By.XPATH, "//input[@id='url']")
