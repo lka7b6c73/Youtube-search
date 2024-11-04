@@ -60,12 +60,13 @@ with col1:
 with col2:
     if st.button("Tải chormedriver.exe"):
         driver_path= download_chorme_driver()
+        st.session_state.driver1 = openWeb(driver_path) 
+        st.write(f"['{datetime.now()}'] Thực thi khởi tạo bot")
 col1, col2 = st.columns([1,1])
 with col1:
     url_driver = st.text_input("Nhập đường dẫn đến chormedriver.exe:")
     driver_path = url_driver
-    st.session_state.driver1 = openWeb(driver_path) 
-    st.write(f"['{datetime.now()}'] Thực thi khởi tạo bot")
+
 
 with col2:
     find = st.text_input("Nhập từ khóa:")
