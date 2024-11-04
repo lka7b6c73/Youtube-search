@@ -9,7 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import urllib.parse
 import random 
-import undetected_chromedriver as uc
+from selenium.webdriver.chrome.options import Options
 st.set_page_config(page_title="SEARCH ENGINER", page_icon="🎬", layout="wide")
 def click_random_element(driver):
     """Nhấp đúp chuột vào một phần tử ngẫu nhiên trên trang."""
@@ -33,7 +33,13 @@ def click_random_element(driver):
 def openWeb(driver_path):
     # Đường dẫn đến trình điều khiển của trình duyệt, ở đây sử dụng Chrome
     # Thay đổi thành đường dẫn tới ChromeDriver trên máy của bạn
-    driver = uc.Chrome()
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    
+    # Khởi tạo driver
+    driver = webdriver.Chrome(options=chrome_options)
     return driver
 def simulate_scroll(driver):
     """Cuộn trang ngẫu nhiên."""
