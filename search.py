@@ -29,9 +29,9 @@ def click_random_element(driver):
     else:
         print("Không tìm thấy phần tử có thể nhấp nào trên trang.")
 
-def openWeb():
+def openWeb(driver_path):
     # Đường dẫn đến trình điều khiển của trình duyệt, ở đây sử dụng Chrome
-    driver_path = "chromedriver.exe"  # Thay đổi thành đường dẫn tới ChromeDriver trên máy của bạn
+    # Thay đổi thành đường dẫn tới ChromeDriver trên máy của bạn
     driver = webdriver.Chrome()
     return driver
 def simulate_scroll(driver):
@@ -47,22 +47,30 @@ def download_chorme_driver():
 
     # Tải file về từ Google Drive
     gdown.download(gdrive_url, driver_path, quiet=False)
-
+    return driver_path
 if 'driver1' not in st.session_state:
-    st.session_state.driver1 = openWeb() 
-    st.write(f"['{datetime.now()}'] Thực thi khởi tạo bot")
+    st.session_state.driver1 = None 
+
 if 'list_link' not in st.session_state:
     st.session_state.list_link = []
 col1, col2 = st.columns([2,1])
+try:
+   driver = webdriver.Chrome()
+   driver.close()
+except Exception:
+   st.write("Chưa có chormedriver.exe")
 with col1:
     st.write("Đã có chormedriver.exe chưa. Nếu chưa bấm để tải")
 with col2:
     if st.button("Tải chormedriver.exe"):
-        download_chorme_driver()
+        driver_path= download_chorme_driver()
 col1, col2 = st.columns([1,1])
 with col1:
     url_driver = st.text_input("Nhập đường dẫn đến chormedriver.exe:")
     driver_path = url_driver
+st.session_state.driver1 = openWeb() 
+st.write(f"['{datetime.now()}'] Thực thi khởi tạo bot")
+
 with col2:
     find = st.text_input("Nhập từ khóa:")
                 # Mã hóa chuỗi
