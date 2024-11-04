@@ -54,11 +54,7 @@ if 'driver1' not in st.session_state:
 if 'list_link' not in st.session_state:
     st.session_state.list_link = []
 col1, col2 = st.columns([2,1])
-try:
-   driver = webdriver.Chrome()
-   driver.close()
-except Exception:
-   st.write("Chưa có chormedriver.exe")
+
 with col1:
     st.write("Đã có chormedriver.exe chưa. Nếu chưa bấm để tải")
 with col2:
@@ -68,8 +64,8 @@ col1, col2 = st.columns([1,1])
 with col1:
     url_driver = st.text_input("Nhập đường dẫn đến chormedriver.exe:")
     driver_path = url_driver
-st.session_state.driver1 = openWeb(driver_path) 
-st.write(f"['{datetime.now()}'] Thực thi khởi tạo bot")
+    st.session_state.driver1 = openWeb(driver_path) 
+    st.write(f"['{datetime.now()}'] Thực thi khởi tạo bot")
 
 with col2:
     find = st.text_input("Nhập từ khóa:")
